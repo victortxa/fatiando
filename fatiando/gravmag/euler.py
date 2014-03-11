@@ -25,6 +25,7 @@ Geophysics, 55(1), 80-91, doi:10.1190/1.1442774.
 """
 from __future__ import division
 import numpy
+import scipy.sparse
 
 from .. import gridder
 from ..inversion.base import Misfit
@@ -76,9 +77,6 @@ class Classic(Misfit):
             != len(yderiv) != len(zderiv)):
             raise ValueError("x, y, z, field, xderiv, yderiv, zderiv must " +
                 "have the same number of elements")
-        if structural_index < 0:
-            raise ValueError("Invalid structural index '%g'. Should be >= 0"
-                % (structural_index))
         super(Classic, self).__init__(
             data=-x*xderiv - y*yderiv - z*zderiv - structural_index*field,
             positional=dict(x=x, y=y, z=z, field=field, xderiv=xderiv,
@@ -136,6 +134,10 @@ class ExpandingWindow(object):
         self.euler = euler
         self.center = center
         self.sizes = sizes
+        self.estimates = None
+        self.errors = None
+        self.uncertainties = None
+        self.best = None
         self.estimate_ = None
         self.p_ = None
 
@@ -152,6 +154,11 @@ class ExpandingWindow(object):
         x, y = euler.positional['x'], euler.positional['y']
         results = []
         errors = []
+        uncertainties = []
+        covs = []
+        windows = []
+        values = []
+        solvers = []
         for size in self.sizes:
             ds = 0.5*size
             xmin, xmax, ymin, ymax = xc - ds, xc + ds, yc - ds, yc + ds
@@ -159,15 +166,43 @@ class ExpandingWindow(object):
             if not numpy.any(indices):
                 continue
             solver = euler.subset(indices).fit()
-            cov = safe_inverse(solver.hessian(solver.p_))
-            uncertainty = numpy.sqrt(safe_diagonal(cov)[0:3])
-            mean_error = numpy.linalg.norm(uncertainty)
+            hessian = solver.hessian(solver.p_)
+            cov = safe_inverse(hessian)
+            uncertainty = numpy.sqrt(safe_diagonal(cov)[:3])
+            mean_error = numpy.linalg.norm(uncertainty[1])
+            uncertainties.append(uncertainty)
+            covs.append(cov)
             errors.append(mean_error)
             results.append(solver.p_)
-        self.p_ = results[numpy.argmin(errors)]
+            windows.append([xmin, xmax, ymin, ymax])
+            values.append(solver.value(solver.p_))
+            solvers.append(solver)
+        self.solvers = solvers
+        self.values = values
+        self.estimates = results
+        self.errors = errors
+        self.covs = covs
+        self.windows = windows
+        self.uncertainties = uncertainties
+        self.best = numpy.argmin(errors)
+        self.best_size = self.sizes[self.best]
+        self.p_ = results[self.best]
         self.estimate_ = self.p_[:3]
         self.baselevel_ = self.p_[3]
         return self
+
+    def value(self, p):
+        return self.solvers[self.best].value(p)
+
+    def predicted(self, p=None):
+        if p is None:
+            p = self.p_
+        return self.euler.predicted(p)
+
+    def residuals(self, p=None):
+        if p is None:
+            p = self.p_
+        return self.euler.residuals(p)
 
 class MovingWindow(object):
     """
