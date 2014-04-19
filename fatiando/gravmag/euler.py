@@ -85,6 +85,7 @@ class Classic(Misfit):
                 yderiv=yderiv, zderiv=zderiv),
             model=dict(structural_index=structural_index),
             nparams=4, islinear=True)
+        self.baselevel_ = None
 
     def _get_jacobian(self, p):
         jac = numpy.transpose(
@@ -138,6 +139,7 @@ class ExpandingWindow(object):
         self.sizes = sizes
         self.estimate_ = None
         self.p_ = None
+        self.baselevel_ = None
 
     def fit(self):
         """
@@ -166,7 +168,8 @@ class ExpandingWindow(object):
             results.append(solver.p_)
         self.p_ = results[numpy.argmin(errors)]
         self.estimate_ = self.p_[:3]
-        self.baselevel_ = self.p_[3]
+        if len(self.p_) > 3:
+            self.baselevel_ = self.p_[3]
         return self
 
 class MovingWindow(object):
@@ -204,6 +207,7 @@ class MovingWindow(object):
         self.window_centers = None
         self.estimate_ = None
         self.p_ = None
+        self.baselevel_ = None
 
     def fit(self):
         """
@@ -243,10 +247,12 @@ class MovingWindow(object):
                 errors.append(mean_error)
                 paramvecs.append(solver.p_)
                 estimates.append(solver.estimate_)
-                baselevels.append(solver.baselevel_)
+                if solver.baselevel_ is not None:
+                    baselevels.append(solver.baselevel_)
         best = numpy.argsort(errors)[:int(self.keep*len(errors))]
         self.p_ = numpy.array(paramvecs)[best]
         self.estimate_ = numpy.array(estimates)[best]
-        self.baselevel_ = numpy.array(baselevels)[best]
+        if baselevels:
+            self.baselevel_ = numpy.array(baselevels)[best]
         return self
 
