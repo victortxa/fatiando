@@ -152,7 +152,8 @@ class ExpandingWindow(object):
         xc, yc = self.center
         euler = self.euler
         x, y = euler.positional['x'], euler.positional['y']
-        results = []
+        estimates = []
+        ps = []
         errors = []
         for size in self.sizes:
             ds = 0.5*size
@@ -165,9 +166,10 @@ class ExpandingWindow(object):
             uncertainty = numpy.sqrt(safe_diagonal(cov)[0:3])
             mean_error = numpy.linalg.norm(uncertainty)
             errors.append(mean_error)
-            results.append(solver.p_)
-        self.p_ = results[numpy.argmin(errors)]
-        self.estimate_ = self.p_[:3]
+            ps.append(solver.p_)
+            estimates.append(solver.estimate_)
+        self.p_ = ps[numpy.argmin(errors)]
+        self.estimate_ = estimates[numpy.argmin(errors)]
         if len(self.p_) > 3:
             self.baselevel_ = self.p_[3]
         return self
