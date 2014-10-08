@@ -10,6 +10,9 @@ Version (future)
 
 **Changes**:
 
+* **New** class :ref:`fatiando.gridder.Grid <fatiando_gridder>` for generating,
+  storing, reading, plotting, projecting and interpolating grid data.
+  (`PR 128 <https://github.com/leouieda/fatiando/pull/128>`__)
 * Using `versioneer <https://github.com/warner/python-versioneer>`__ to manage
   version numbers. Access the version number + git commit hash from
   ``fatiando.__version__``.
