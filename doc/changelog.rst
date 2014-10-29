@@ -10,6 +10,9 @@ Version (development)
 
 **Changes**:
 
+* **New class** :ref:`fatiando.gridder.Grid <fatiando_gridder>` for generating,
+  storing, reading, plotting, projecting and interpolating grid data.
+  (`PR 128 <https://github.com/fatiando/fatiando/pull/128>`__)
 
 
 Version 0.3
@@ -19,9 +22,6 @@ Version 0.3
 
 **Changes**:
 
-* **New class** :ref:`fatiando.gridder.Grid <fatiando_gridder>` for generating,
-  storing, reading, plotting, projecting and interpolating grid data.
-  (`PR 128 <https://github.com/fatiando/fatiando/pull/128>`__)
 * **New module** :ref:`fatiando.gravmag.normal_gravity
   <fatiando_gravmag_normal_gravity>` to calculate normal gravity (the gravity
   of reference ellipsoids).
