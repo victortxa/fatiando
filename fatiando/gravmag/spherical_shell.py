@@ -248,3 +248,178 @@ def half_gyy(heights, top, bottom, density, radius=MEAN_EARTH_RADIUS):
 
     """
     return half_gxx(heights, top, bottom, density, radius)
+
+
+def potential(heights, top, bottom, density, radius=MEAN_EARTH_RADIUS):
+    r"""
+    Calculate the gravitational potential of a spherical shell on the polar
+    axis.
+
+    .. math::
+
+        V(r) = \dfrac{4}{3}\pi G \rho \dfrac{r_2^3 - r_1^3}{r},
+
+    where :math:`\rho` is the dentity, :math:`r` is the radius coordinate of
+    the observation point, :math:`r_1` and :math:`r_2` are the bottom and top
+    radius coordinates of the spherical shell, respectively.
+
+    .. note:: Heights are measured with respect to the *radius* parameter.
+
+    Parameters:
+
+    * heights : float or numpy array
+        The height of the computation point(s) in meters.
+    * top : float
+        The height of the top of the half shell in meters.
+    * bottom : float
+        The height of the bottom of the half shell in meters.
+    * density : float
+        The density of the half shell in :math:`kg.m^{-3}`
+
+    Returns:
+
+    * result : float or numpy array
+        The potential in SI.
+
+    """
+    r = heights + radius
+    r1 = bottom + radius
+    r2 = top + radius
+    res = (4/3)*np.pi*G*density*(r2**3 - r1**3)/r
+    return res
+
+
+def gz(heights, top, bottom, density, radius=MEAN_EARTH_RADIUS):
+    r"""
+    Calculate the gz component of a spherical shell on the polar axis.
+
+    gz is the radial derivative of the potential.
+
+    .. math::
+
+        g_z(r) = \dfrac{V(r)}{r},
+
+    .. note:: Heights are measured with respect to the *radius* parameter.
+
+    Parameters:
+
+    * heights : float or numpy array
+        The height of the computation point(s) in meters.
+    * top : float
+        The height of the top of the half shell in meters.
+    * bottom : float
+        The height of the bottom of the half shell in meters.
+    * density : float
+        The density of the half shell in :math:`kg.m^{-3}`
+
+    Returns:
+
+    * result : float or numpy array
+        The gz component in mGal.
+
+    """
+    r = heights + radius
+    pot = potential(heights, top, bottom, density, radius)
+    res = SI2MGAL*pot/r
+    return res
+
+
+def gzz(heights, top, bottom, density, radius=MEAN_EARTH_RADIUS):
+    r"""
+    Calculate the gzz component of a spherical shell on the polar axis.
+
+    gzz is the second radial derivative of the potential.
+
+    .. math::
+
+        g_{zz}(r) = 2\dfrac{V(r)}{r^2},
+
+    .. note:: Heights are measured with respect to the *radius* parameter.
+
+    Parameters:
+
+    * heights : float or numpy array
+        The height of the computation point(s) in meters.
+    * top : float
+        The height of the top of the half shell in meters.
+    * bottom : float
+        The height of the bottom of the half shell in meters.
+    * density : float
+        The density of the half shell in :math:`kg.m^{-3}`
+
+    Returns:
+
+    * result : float or numpy array
+        The gzz component in EOTVOS.
+
+    """
+    r = heights + radius
+    pot = potential(heights, top, bottom, density, radius)
+    res = SI2EOTVOS*2*pot/(r**2)
+    return res
+
+
+def gxx(heights, top, bottom, density, radius=MEAN_EARTH_RADIUS):
+    r"""
+    Calculate the gxx component of a spherical shell on the polar axis.
+
+    gxx is the second northward derivative of the potential.
+
+    .. math::
+
+        g_{xx}(r) = -\dfrac{g_{zz}}{2},
+
+    .. note:: Heights are measured with respect to the *radius* parameter.
+
+    Parameters:
+
+    * heights : float or numpy array
+        The height of the computation point(s) in meters.
+    * top : float
+        The height of the top of the half shell in meters.
+    * bottom : float
+        The height of the bottom of the half shell in meters.
+    * density : float
+        The density of the half shell in :math:`kg.m^{-3}`
+
+    Returns:
+
+    * result : float or numpy array
+        The gxx component in EOTVOS.
+
+    """
+    res = -0.5*gzz(heights, top, bottom, density, radius)
+    return res
+
+
+def gyy(heights, top, bottom, density, radius=MEAN_EARTH_RADIUS):
+    r"""
+    Calculate the gyy component of a spherical shell on the polar axis.
+
+    gyy is the second eastward derivative of the potential.
+
+    .. math::
+
+        g_{yy}(r) = -\dfrac{g_{zz}}{2},
+
+    .. note:: Heights are measured with respect to the *radius* parameter.
+
+    Parameters:
+
+    * heights : float or numpy array
+        The height of the computation point(s) in meters.
+    * top : float
+        The height of the top of the half shell in meters.
+    * bottom : float
+        The height of the bottom of the half shell in meters.
+    * density : float
+        The density of the half shell in :math:`kg.m^{-3}`
+
+    Returns:
+
+    * result : float or numpy array
+        The gyy component in EOTVOS.
+
+    """
+    res = gxx(heights, top, bottom, density, radius)
+    return res
