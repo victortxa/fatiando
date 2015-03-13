@@ -5,7 +5,7 @@
     :alt: Fatiando a Terra
 
 `Website <http://www.fatiando.org>`__ |
-`Docs <http://fatiando.readthedocs.org>`__ |
+`Docs <http://fatiando.github.io/docs.html>`__ |
 `Mailing list <https://groups.google.com/d/forum/fatiando>`__ |
 `Google+ <https://plus.google.com/+FatiandoOrg>`__
 
@@ -20,10 +20,10 @@ A Python package for modeling and inversion in geophysics.
 .. image:: http://img.shields.io/badge/license-BSD-lightgrey.svg?style=flat
     :alt: BSD 3 clause license
     :target: https://github.com/fatiando/fatiando/blob/master/LICENSE.txt
-.. image:: http://img.shields.io/travis/fatiando/fatiando.svg?style=flat
+.. image:: http://img.shields.io/travis/fatiando/fatiando/master.svg?style=flat
     :alt: Travis CI build status
     :target: https://travis-ci.org/fatiando/fatiando
-.. image:: http://img.shields.io/coveralls/fatiando/fatiando.svg?style=flat
+.. image:: http://img.shields.io/coveralls/fatiando/fatiando/master.svg?style=flat
     :alt: Test coverage status
     :target: https://coveralls.io/r/fatiando/fatiando?branch=master
 .. image:: http://img.shields.io/badge/doi-10.6084/m9.figshare.1115194-blue.svg?style=flat
@@ -44,14 +44,14 @@ To install and run Fatiando, you'll need the following packages:
 * PIL >= 1.1.7
 * basemap >= 1.0.7
 * gcc >= 4.8.2
+* numba >= 0.17
 
 You can get all of these on Linux, Mac, and Windows through
 the `Anaconda distribution <http://continuum.io/downloads>`__.
-See file ``requirements.txt`` and the
-`documentation <http://fatiando.readthedocs.org>`__.
+See file ``requirements.txt``.
 
 **Windows users**: See the
-`install docs <http://fatiando.readthedocs.org/en/latest/install.html>`__
+`install docs <http://fatiando.github.io/install.html#extra-dependencies-for-windows-users>`__
 for special instructions on getting the dependencies installed.
 
 Installing
@@ -83,21 +83,15 @@ please **cite it** in your publications as::
 
 Some of the methods implemented here are also **original research** by some of
 the developers. Please **also cite the method papers**.
+References are available in the documentation of each module.
 See the
 `CITATION.rst <https://github.com/fatiando/fatiando/blob/master/CITATION.rst>`__
-file for more information.
+file or the `documentation <http://fatiando.github.io/cite.html>`__
+for more information.
 
 Read `this blog post by Robin Wilson
 <http://www.software.ac.uk/blog/2013-09-02-encouraging-citation-software-introducing-citation-files>`__
 if you haven't heard of CITATION files.
-
-Documentation
--------------
-
-The latest documentation is available at ReadTheDocs. The docs reflects the
-*master* branch on Github.
-
-http://fatiando.readthedocs.org
 
 
 License

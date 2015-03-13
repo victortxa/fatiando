@@ -9,7 +9,8 @@ predicted (or modeled) data and (optionally) the Jacobian (or sensitivity)
 matrix. With only that, you have access to a range of optimization methods,
 regularization, joint inversion, etc.
 
-**Modules**
+Modules
+-------
 
 * :mod:`~fatiando.inversion.base`: Base classes for building inverse problem
   solvers
@@ -31,7 +32,7 @@ Examples
 --------
 
 Linear Regression
-=================
++++++++++++++++++
 
 Here is an example of how to implement a simple linear regression using the
 :class:`~fatiando.inversion.base.Misfit` class.
@@ -88,7 +89,7 @@ array([[ 0.,  1.],
        [ 5.,  1.]])
 
 Polynomial fit
-==============
+++++++++++++++
 
 A more complicated example would be to implement a generic polynomial fit.
 
@@ -147,7 +148,7 @@ array([ True,  True,  True,  True,  True,  True], dtype=bool)
 
 
 Non-linear Gaussian fit
-=======================
++++++++++++++++++++++++
 
 In this example, I want to fit an equation of the form
 
@@ -186,8 +187,8 @@ array([ 100. ,    0.1,   -2. ])
 >>> np.all(np.abs(solver.residuals()) < 10**-10)
 True
 
-Joint inversion
-===============
+Multiple data sets (joint inversion)
+++++++++++++++++++++++++++++++++++++
 
 Sometimes multiple data types depend on the same parameters (e.g., gravity
 and gravity gradients depend of density). In these cases, the inversion of both
