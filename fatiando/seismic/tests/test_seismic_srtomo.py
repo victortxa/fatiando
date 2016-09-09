@@ -32,6 +32,15 @@ def test_jacobian():
     assert_array_almost_equal(tomo.jacobian().todense(), 
                               np.array([[5.,0.],[5.,5.]]),9)
 
-#def test_predicted():
-#    """
-#    """
+def test_predicted():
+    """
+    Still thinking in a test for predicted function...
+    """
+    model = SquareMesh((0, 10, 0, 10), shape=(2, 2),
+                        props={'vp':[2., 5.,2.,5.]})
+    src = (5, 0)
+    srcs = [src, src]
+    recs = [(0, 0), (5, 10)]
+    ttimes = ttime2d.straight(model, 'vp', srcs, recs)
+    tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
+    tomo.predicted()
