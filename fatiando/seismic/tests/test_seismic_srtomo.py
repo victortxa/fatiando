@@ -23,14 +23,12 @@ def test_jacobian():
     srtomo.SRTomo.jacobian return the jacobian of the model provided. In this 
     simple model,
     """
-    model = [Square([0, 10, 0, 5], {'vp':2}),
-             Square([0, 10, 5, 10], {'vp':5})]
+    mesh = SquareMesh((0, 10, 0, 10), shape=(2, 1), props={'vp':[2., 5.]})
     src = (5, 0)
     srcs = [src, src]
     recs = [(0, 0), (5, 10)]
     ttimes = ttime2d.straight(model, 'vp', srcs, recs)
-    mesh = SquareMesh((0, 10, 0, 10), shape=(2, 1))
-    tomo = srtomo.SRTomo(ttimes, srcs, recs, mesh)
+    tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
     assert_array_almost_equal(tomo.jacobian().todense(), 
                               np.array([[5.,0.],[5.,5.]]),9)
 
