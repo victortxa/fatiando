@@ -10,16 +10,13 @@ def test_general():
     """
     General test of the class SRTomo, as it is in the docs of this class.
     """
-    model = [Square([0, 10, 0, 5], {'vp':2}),
-             Square([0, 10, 5, 10], {'vp':5})]
+    model = SquareMesh((0, 10, 0, 10), shape=(2, 1), props={'vp':[2., 5.]})
     src = (5, 0)
     srcs = [src, src]
     recs = [(0, 0), (5, 10)]
     ttimes = ttime2d.straight(model, 'vp', srcs, recs)
-    mesh = SquareMesh((0, 10, 0, 10), shape=(2, 1))
-    tomo = srtomo.SRTomo(ttimes, srcs, recs, mesh)
-    tomo.fit().estimate_
-    assert_array_almost_equal(tomo.fit().estimate_,np.array([2.,5.]),9)
+    tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
+    assert_array_almost_equal(tomo.fit().estimate_, np.array([2.,5.]),9)
 
 def test_jacobian():
     """
