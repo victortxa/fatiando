@@ -37,13 +37,15 @@ def test_jacobian():
 
 def test_predicted():
     """
-    Still thinking in a test for predicted function...
+    Test to verify srtomo.SRTomo.predicted function. Given the correct
+    parameters, this function must return the result of the forward data.
     """
-    model = SquareMesh((0, 10, 0, 10), shape=(2, 2),
-                       props={'vp': [2., 5., 2., 5.]})
+    model = SquareMesh((0, 10, 0, 10), shape=(2, 1), props={'vp': [2., 5.]})
     src = (5, 0)
     srcs = [src, src]
     recs = [(0, 0), (5, 10)]
     ttimes = ttime2d.straight(model, 'vp', srcs, recs)
     tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
-    #tomo.predicted()
+    # The parameter used inside the class is slowness, so 1/vp.
+    tomo.p_ = np.array([1./2., 1./5.])
+    assert_array_almost_equal(tomo.predicted(), ttimes, 9)
