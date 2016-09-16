@@ -1,3 +1,5 @@
+from __future__ import division, print_function
+from future.builtins import range
 import numpy as np
 from numpy.testing import assert_array_almost_equal, assert_allclose
 from pytest import raises
@@ -16,7 +18,8 @@ def test_general():
     srcs = [src, src]
     recs = [(0, 0), (5, 10)]
     ttimes = ttime2d.straight(model, 'vp', srcs, recs)
-    tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
+    mesh = SquareMesh((0, 10, 0, 10), shape=(2, 1))
+    tomo = srtomo.SRTomo(ttimes, srcs, recs, mesh)
     assert_array_almost_equal(tomo.fit().estimate_, np.array([2., 5.]), 9)
 
 
@@ -30,7 +33,8 @@ def test_jacobian():
     srcs = [src, src]
     recs = [(0, 0), (5, 10)]
     ttimes = ttime2d.straight(model, 'vp', srcs, recs)
-    tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
+    mesh = SquareMesh((0, 10, 0, 10), shape=(2, 1))
+    tomo = srtomo.SRTomo(ttimes, srcs, recs, mesh)
     assert_array_almost_equal(tomo.jacobian().todense(),
                               np.array([[5., 0.], [5., 5.]]), 9)
 
@@ -45,7 +49,8 @@ def test_predicted():
     srcs = [src, src]
     recs = [(0, 0), (5, 10)]
     ttimes = ttime2d.straight(model, 'vp', srcs, recs)
-    tomo = srtomo.SRTomo(ttimes, srcs, recs, model)
+    mesh = SquareMesh((0, 10, 0, 10), shape=(2, 1))
+    tomo = srtomo.SRTomo(ttimes, srcs, recs, mesh)
     # The parameter used inside the class is slowness, so 1/vp.
     tomo.p_ = np.array([1./2., 1./5.])
     assert_array_almost_equal(tomo.predicted(), ttimes, 9)
