@@ -44,6 +44,7 @@ Create and operate on grids and profiles.
 from __future__ import division
 import numpy
 import scipy.interpolate
+import math
 
 
 def load_surfer(fname, fmt='ascii'):
