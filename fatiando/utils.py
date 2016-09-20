@@ -11,12 +11,6 @@ Miscellaneous utility functions and classes.
 * :func:`~fatiando.utils.safe_diagonal`
 * :func:`~fatiando.utils.safe_inverse`
 
-**Point scatter generation**
-
-* :func:`~fatiando.utils.random_points`
-* :func:`~fatiando.utils.circular_points`
-* :func:`~fatiando.utils.connect_points`
-
 **Unit conversion**
 
 * :func:`~fatiando.utils.si2mgal`
