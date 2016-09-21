@@ -113,8 +113,6 @@ class SRTomo(Misfit):
 
         """
         pred = safe_dot(self.jacobian(p), p)
-        if len(pred.shape) > 1:
-            pred = np.array(pred.T).ravel()
         return pred
 
     def fmt_estimate(self, p):
