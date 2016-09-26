@@ -2,35 +2,35 @@ import numpy
 from fatiando import utils, gridder
 
 
-def test_gridder_circular_points():
-    "gridder.circular_points return diff sequence"
+def test_gridder_circular_scatter():
+    "gridder.circular_scatter return diff sequence"
     area = [-1000, 1200, -40, 200]
     size = 1300
     for i in xrange(20):
-        x1, y1 = gridder.circular_points(area, size, random=True).T
-        x2, y2 = gridder.circular_points(area, size, random=True).T
+        x1, y1 = gridder.circular_scatter(area, size, random=True)
+        x2, y2 = gridder.circular_scatter(area, size, random=True)
         assert numpy.all(x1 != x2) and numpy.all(y1 != y2)
 
 
-def test_gridder_circular_points_seed():
-    "gridder.circular_points returns same sequence using same random seed"
+def test_gridder_circular_scatter_seed():
+    "gridder.circular_scatter returns same sequence using same random seed"
     area = [0, 1000, 0, 1000]
     size = 1000
     for seed in numpy.random.randint(low=0, high=10000, size=20):
-        x1, y1 = gridder.circular_points(area, size, random=True, seed=seed).T
-        x2, y2 = gridder.circular_points(area, size, random=True, seed=seed).T
+        x1, y1 = gridder.circular_scatter(area, size, random=True, seed=seed)
+        x2, y2 = gridder.circular_scatter(area, size, random=True, seed=seed)
         assert numpy.all(x1 == x2) and numpy.all(y1 == y2)
 
 
-def test_gridder_circular_points_seed_noseed():
-    "gridder.circular_points returns diff sequence after using random seed"
+def test_gridder_circular_scatter_seed_noseed():
+    "gridder.circular_scatter returns diff sequence after using random seed"
     area = [0, 1000, 0, 1000]
     size = 1000
     seed = 1242
-    x1, y1 = gridder.circular_points(area, size, random=True, seed=seed).T
-    x2, y2 = gridder.circular_points(area, size, random=True, seed=seed).T
+    x1, y1 = gridder.circular_scatter(area, size, random=True, seed=seed)
+    x2, y2 = gridder.circular_scatter(area, size, random=True, seed=seed)
     assert numpy.all(x1 == x2) and numpy.all(y1 == y2)
-    x3, y3 = gridder.circular_points(area, size, random=True).T
+    x3, y3 = gridder.circular_scatter(area, size, random=True)
     assert numpy.all(x1 != x3) and numpy.all(y1 != y3)
 
 
