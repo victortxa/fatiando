@@ -17,7 +17,8 @@ model.addprop('vp', vel.ravel())
 
 # Make some travel time data and add noise
 seed = 0  # Set the random seed so that points are the same every time
-src_loc = gridder.random_points(area, 80, seed=seed)
+src_loc_x, src_loc_y = gridder.scatter(area, 80, seed=seed)
+src_loc = np.transpose([src_loc_x, src_loc_y])
 rec_loc = gridder.circular_points(area, 30, random=True, seed=seed)
 srcs = [src for src in src_loc for _ in rec_loc]
 recs = [rec for _ in src_loc for rec in rec_loc]
