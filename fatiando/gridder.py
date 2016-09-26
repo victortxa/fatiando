@@ -34,7 +34,6 @@ Create and operate on grids and profiles.
 
 **Point scatter generation**
 
-* :func:`~fatiando.utils.random_points`
 * :func:`~fatiando.utils.circular_points`
 
 ----
@@ -782,35 +781,6 @@ def _is_integer(s):
         return True
     except TypeError:
         return False
-
-
-def random_points(area, n, seed=None):
-    """
-    Generate a set of n random points.
-
-    Parameters:
-
-    * area : list = [x1, x2, y1, y2]
-        Area inside of which the points are contained
-    * n : int
-        Number of points
-    * seed : None or int
-        Seed used to generate the pseudo-random numbers. If `None`, will use a
-        different seed every time. Use the same seed to generate the same
-        random sequence.
-
-    Result:
-
-    * points : list
-        List of (x, y) coordinates of the points
-
-    """
-    x1, x2, y1, y2 = area
-    numpy.random.seed(seed)
-    xs = numpy.random.uniform(x1, x2, n)
-    ys = numpy.random.uniform(y1, y2, n)
-    numpy.random.seed()
-    return numpy.array([xs, ys]).T
 
 
 def circular_points(area, n, random=False, seed=None):
