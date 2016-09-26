@@ -257,10 +257,10 @@ def circular_scatter(area, n, random=False, seed=None):
         If `None`, will use a different seed every time.
         Use the same seed to generate the same random sequence.
 
-    Result:
+    Returns:
 
-    * points : list
-        List of (x, y) coordinates of the points
+    * ``[x, y]``
+        Numpy arrays with the x and y coordinates of the points    
 
     """
     x1, x2, y1, y2 = area
