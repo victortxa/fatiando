@@ -34,7 +34,7 @@ Create and operate on grids and profiles.
 
 **Point scatter generation**
 
-* :func:`~fatiando.utils.circular_points`
+* :func:`~fatiando.gridder.circular_scatter`
 
 ----
 
@@ -236,6 +236,45 @@ def scatter(area, n, z=None, seed=None):
     if z is not None:
         arrays.append(z*numpy.ones(n))
     return arrays
+
+
+def circular_scatter(area, n, random=False, seed=None):
+    """
+    Generate a set of n points positioned in a circular array.
+
+    The diameter of the circle is equal to the smallest dimension of the area
+
+    Parameters:
+
+    * area : list = [x1, x2, y1, y2]
+        Area inside of which the points are contained
+    * n : int
+        Number of points
+    * random : True or False
+        If True, positions of the points on the circle will be chosen at random
+    * seed : None or int
+        Seed used to generate the pseudo-random numbers if `random==True`.
+        If `None`, will use a different seed every time.
+        Use the same seed to generate the same random sequence.
+
+    Result:
+
+    * points : list
+        List of (x, y) coordinates of the points
+
+    """
+    x1, x2, y1, y2 = area
+    radius = 0.5 * min(x2 - x1, y2 - y1)
+    if random:
+        numpy.random.seed(seed)
+        angles = numpy.random.uniform(0, 2 * math.pi, n)
+        numpy.random.seed()
+    else:
+        da = 2. * math.pi / float(n)
+        angles = numpy.arange(0., 2. * math.pi, da)
+    xs = 0.5 * (x1 + x2) + radius * numpy.cos(angles)
+    ys = 0.5 * (y1 + y2) + radius * numpy.sin(angles)
+    return [xs, ys]
 
 
 def spacing(area, shape):
@@ -781,42 +820,3 @@ def _is_integer(s):
         return True
     except TypeError:
         return False
-
-
-def circular_points(area, n, random=False, seed=None):
-    """
-    Generate a set of n points positioned in a circular array.
-
-    The diameter of the circle is equal to the smallest dimension of the area
-
-    Parameters:
-
-    * area : list = [x1, x2, y1, y2]
-        Area inside of which the points are contained
-    * n : int
-        Number of points
-    * random : True or False
-        If True, positions of the points on the circle will be chosen at random
-    * seed : None or int
-        Seed used to generate the pseudo-random numbers if `random==True`.
-        If `None`, will use a different seed every time.
-        Use the same seed to generate the same random sequence.
-
-    Result:
-
-    * points : list
-        List of (x, y) coordinates of the points
-
-    """
-    x1, x2, y1, y2 = area
-    radius = 0.5 * min(x2 - x1, y2 - y1)
-    if random:
-        numpy.random.seed(seed)
-        angles = numpy.random.uniform(0, 2 * math.pi, n)
-        numpy.random.seed()
-    else:
-        da = 2. * math.pi / float(n)
-        angles = numpy.arange(0., 2. * math.pi, da)
-    xs = 0.5 * (x1 + x2) + radius * numpy.cos(angles)
-    ys = 0.5 * (y1 + y2) + radius * numpy.sin(angles)
-    return numpy.array([xs, ys]).T
