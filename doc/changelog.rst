@@ -10,7 +10,8 @@ Version 0.5
 
 **Changes**:
 
-* Add test for SRTomo class.
+* Implement unit tests for the ``fatiando.seismic.srtomo`` module. Reached 100%
+  test coverage. Now examples are only in the cookbook.
   (`PR 316  <https://github.com/fatiando/fatiando/pull/316>`__)
 * Add copy method to ``fatiando.mesher`` objects.
   (`PR 301  <https://github.com/fatiando/fatiando/pull/301>`__)
