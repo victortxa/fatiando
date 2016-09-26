@@ -12,11 +12,7 @@ refraction)
 * :func:`~fatiando.seismic.srtomo.slowness2vel`: Safely convert slowness to
   velocity (avoids zero division)
 
-**Examples**
-
-
 ----
-
 """
 from __future__ import division
 from future.builtins import super
