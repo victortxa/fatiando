@@ -10,6 +10,8 @@ Version 0.5
 
 **Changes**:
 
+* Add test for SRTomo class.
+  (`PR 316  <https://github.com/fatiando/fatiando/pull/316>`__)
 * Add copy method to ``fatiando.mesher`` objects.
   (`PR 301  <https://github.com/fatiando/fatiando/pull/301>`__)
 * Move from ``distutils`` to ``setuptools`` in ``setup.py``, as recommended in
