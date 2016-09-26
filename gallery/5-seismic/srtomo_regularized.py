@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 from fatiando.mesher import SquareMesh
 from fatiando.seismic import ttime2d, srtomo
 from fatiando.inversion import Smoothness2D, Damping, TotalVariation2D
-from fatiando import utils
+from fatiando import utils, gridder
 
 # First, we'll create a simple model with a high velocity square in the middle
 area = (0, 500000, 0, 500000)
@@ -31,10 +31,10 @@ model.addprop('vp', vel.ravel())
 # Make some noisy travel time data using straight-rays
 # Set the random seed so that points are the same every time we run this script
 seed = 0
-src_loc = utils.random_points(area, 80, seed=seed)
-rec_loc = utils.circular_points(area, 30, random=True, seed=seed)
+src_loc = gridder.random_points(area, 80, seed=seed)
+rec_loc = gridder.circular_points(area, 30, random=True, seed=seed)
 srcs = [src for src in src_loc for _ in rec_loc]
-recs = [rec for _ in rec_loc for rec in rec_loc]
+recs = [rec for _ in src_loc for rec in rec_loc]
 tts = ttime2d.straight(model, 'vp', srcs, recs)
 # Use 2% random noise to corrupt the data
 tts = utils.contaminate(tts, 0.02, percent=True, seed=seed)
