@@ -33,7 +33,8 @@ model.addprop('vp', vel.ravel())
 seed = 0
 src_loc = utils.random_points(area, 80, seed=seed)
 rec_loc = utils.circular_points(area, 30, random=True, seed=seed)
-srcs, recs = utils.connect_points(src_loc, rec_loc)
+srcs = [src for src in src_loc for _ in rec_loc]
+recs = [rec for _ in rec_loc for rec in rec_loc]
 tts = ttime2d.straight(model, 'vp', srcs, recs)
 # Use 2% random noise to corrupt the data
 tts = utils.contaminate(tts, 0.02, percent=True, seed=seed)

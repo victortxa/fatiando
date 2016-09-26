@@ -19,7 +19,8 @@ model.addprop('vp', vel.ravel())
 seed = 0  # Set the random seed so that points are the same every time
 src_loc = gridder.random_points(area, 80, seed=seed)
 rec_loc = gridder.circular_points(area, 30, random=True, seed=seed)
-srcs, recs = gridder.connect_points(src_loc, rec_loc)
+srcs = [src for src in src_loc for _ in rec_loc]
+recs = [rec for _ in rec_loc for rec in rec_loc]
 tts = ttime2d.straight(model, 'vp', srcs, recs)
 tts, error = utils.contaminate(tts, 0.01, percent=True, return_stddev=True,
                                seed=seed)
