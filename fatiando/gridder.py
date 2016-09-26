@@ -36,7 +36,6 @@ Create and operate on grids and profiles.
 
 * :func:`~fatiando.utils.random_points`
 * :func:`~fatiando.utils.circular_points`
-* :func:`~fatiando.utils.connect_points`
 
 ----
 
@@ -851,33 +850,3 @@ def circular_points(area, n, random=False, seed=None):
     xs = 0.5 * (x1 + x2) + radius * numpy.cos(angles)
     ys = 0.5 * (y1 + y2) + radius * numpy.sin(angles)
     return numpy.array([xs, ys]).T
-
-
-def connect_points(pts1, pts2):
-    """
-    Connects each point in the first list with all points in the second.
-    If the first list has N points and the second has M, the result are 2 lists
-    with N*M points each, representing the connections.
-
-    Parameters:
-
-    * pts1 : list
-        List of (x, y) coordinates of the points.
-    * pts2 : list
-        List of (x, y) coordinates of the points.
-
-    Returns:
-
-    * results : lists of lists = [connect1, connect2]
-        2 lists with the connected points
-
-    """
-    connect1 = []
-    append1 = connect1.append
-    connect2 = []
-    append2 = connect2.append
-    for p1 in pts1:
-        for p2 in pts2:
-            append1(p1)
-            append2(p2)
-    return [connect1, connect2]
