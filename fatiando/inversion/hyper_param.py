@@ -92,9 +92,9 @@ class LCurve(OptimizerMixin):
     >>> model.addprop('vp', vp.ravel())
     >>> src_loc_x, src_loc_y = gridder.scatter(area, 30, seed=0)
     >>> src_loc = numpy.transpose([src_loc_x, src_loc_y])
-    >>> rec_loc_x, rec_loc_y = gridder.circular_scatter(area, 20, 
+    >>> rec_loc_x, rec_loc_y = gridder.circular_scatter(area, 20,
     ...                                                 random=True, seed=0)
-    >>> rec_loc = numpy.transpose([rec_loc_x, rec_loc_y])    
+    >>> rec_loc = numpy.transpose([rec_loc_x, rec_loc_y])
     >>> srcs = [src for src in src_loc for _ in rec_loc]
     >>> recs = [rec for _ in src_loc for rec in rec_loc]
     >>> tts = ttime2d.straight(model, 'vp', srcs, recs)

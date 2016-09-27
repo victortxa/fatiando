@@ -260,7 +260,7 @@ def circular_scatter(area, n, random=False, seed=None):
     Returns:
 
     * ``[x, y]``
-        Numpy arrays with the x and y coordinates of the points    
+        Numpy arrays with the x and y coordinates of the points
 
     """
     x1, x2, y1, y2 = area
