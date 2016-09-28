@@ -50,8 +50,8 @@ def test_gridder_circular_scatter_constant():
     area = [0, 1000, 0, 1000]
     size = 1000
     x, y = gridder.circular_scatter(area, size, random=False)
-    distances = numpy.sqrt((x[1:] - x[:-1])**2 + (y[1:] - y[:-1])**2)  
-    assert_allclose(distances, distances[0]*numpy.ones(size-1), rtol=1e-09)    
+    distances = numpy.sqrt((x[1:] - x[:-1])**2 + (y[1:] - y[:-1])**2)
+    assert_allclose(distances, distances[0]*numpy.ones(size-1), rtol=1e-09)
 
 
 def test_gridder_circular_scatter_num_point():
