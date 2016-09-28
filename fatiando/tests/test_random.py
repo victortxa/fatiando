@@ -44,7 +44,7 @@ def test_gridder_circular_scatter_seed_noseed():
 
 def test_gridder_circular_scatter_constant():
     """
-    gridder.circular_scatter must return points with the distance between 
+    gridder.circular_scatter must return points with the distance between
     consecutive ones with a constant value, when ``random = False``.
     """
     area = [0, 1000, 0, 1000]
