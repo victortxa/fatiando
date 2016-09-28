@@ -50,7 +50,7 @@ def test_gridder_circular_scatter_constant():
     area = [0, 1000, 0, 1000]
     size = 1000
     x, y = gridder.circular_scatter(area, size, random=False)
-    for i in xrange(1,size-1):
+    for i in xrange(1, size-1):
         d1 = ((x[i]-x[i-1])**2 + (y[i]-y[i-1])**2)**0.5
         d2 = ((x[i+1]-x[i])**2 + (y[i+1]-y[i])**2)**0.5
         assert_almost_equal(d1, d2, 9)
