@@ -28,8 +28,10 @@ def test_gridder_circular_scatter_seed_noseed():
     z = 20
     size = 1000
     seed = 1242
-    x1, y1, z1 = gridder.circular_scatter(area, size, z, random=True, seed=seed)
-    x2, y2, z2 = gridder.circular_scatter(area, size, z, random=True, seed=seed)
+    x1, y1, z1 = gridder.circular_scatter(area, size, z, 
+                                          random=True, seed=seed)
+    x2, y2, z2 = gridder.circular_scatter(area, size, z, 
+                                          random=True, seed=seed)
     assert numpy.all(x1 == x2) and numpy.all(y1 == y2)
     assert numpy.all(z1 == z2)
     x3, y3, z3 = gridder.circular_scatter(area, size, z, random=True)
