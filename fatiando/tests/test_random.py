@@ -1,4 +1,5 @@
 import numpy
+from numpy.testing import assert_almost_equal
 from fatiando import utils, gridder
 
 
@@ -39,6 +40,20 @@ def test_gridder_circular_scatter_seed_noseed():
     assert numpy.all(z1 == z3)
     x4, y4, z4 = gridder.circular_scatter(area, size, z, random=False)
     assert numpy.all(x1 != x4) and numpy.all(y1 != y4)
+
+
+def test_gridder_circular_scatter_constant():
+    """
+    gridder.circular_scatter must return points with the distance between 
+    consecutive points constant.
+    """
+    area = [0, 1000, 0, 1000]
+    size = 1000
+    x, y = gridder.circular_scatter(area, size, random=False)
+    for i in xrange(1,size-1):
+        d1 = ((x[i]-x[i-1])**2 + (y[i]-y[i-1])**2)**0.5
+        d2 = ((x[i+1]-x[i])**2 + (y[i+1]-y[i])**2)**0.5
+        assert_almost_equal(d1, d2, 9)
 
 
 def test_gridder_scatter():
