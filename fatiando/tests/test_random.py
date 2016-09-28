@@ -25,14 +25,16 @@ def test_gridder_circular_scatter_seed():
 def test_gridder_circular_scatter_seed_noseed():
     "gridder.circular_scatter returns diff sequence after using random seed"
     area = [0, 1000, 0, 1000]
+    z = 20
     size = 1000
     seed = 1242
-    x1, y1 = gridder.circular_scatter(area, size, random=True, seed=seed)
-    x2, y2 = gridder.circular_scatter(area, size, random=True, seed=seed)
+    x1, y1, z1 = gridder.circular_scatter(area, size, z, random=True, seed=seed)
+    x2, y2, z2 = gridder.circular_scatter(area, size, z, random=True, seed=seed)
     assert numpy.all(x1 == x2) and numpy.all(y1 == y2)
-    x3, y3 = gridder.circular_scatter(area, size, random=True)
+    assert numpy.all(z1 == z2)
+    x3, y3, z3 = gridder.circular_scatter(area, size, z, random=True)
     assert numpy.all(x1 != x3) and numpy.all(y1 != y3)
-
+    assert numpy.all(z1 == z3)
 
 def test_gridder_scatter():
     "gridder.scatter returns diff sequence"
@@ -57,13 +59,16 @@ def test_gridder_scatter_seed():
 def test_gridder_scatter_seed_noseed():
     "gridder.scatter returns diff sequence after using random seed"
     area = [0, 1000, 0, 1000]
+    z = 20
     size = 1000
     seed = 1242
-    x1, y1 = gridder.scatter(area, size, seed=seed)
-    x2, y2 = gridder.scatter(area, size, seed=seed)
+    x1, y1, z1 = gridder.scatter(area, size, z, seed=seed)
+    x2, y2, z2 = gridder.scatter(area, size, z, seed=seed)
     assert numpy.all(x1 == x2) and numpy.all(y1 == y2)
-    x3, y3 = gridder.scatter(area, size)
+    assert numpy.all(z1 == z2)
+    x3, y3, z3 = gridder.scatter(area, size, z)
     assert numpy.all(x1 != x3) and numpy.all(y1 != y3)
+    assert numpy.all(z1 == z3)
 
 
 def test_utils_contaminate():
