@@ -238,7 +238,7 @@ def scatter(area, n, z=None, seed=None):
     return arrays
 
 
-def circular_scatter(area, n, random=False, seed=None):
+def circular_scatter(area, n, z=None, random=False, seed=None):
     """
     Generate a set of n points positioned in a circular array.
 
@@ -250,6 +250,9 @@ def circular_scatter(area, n, random=False, seed=None):
         Area inside of which the points are contained
     * n : int
         Number of points
+    * z
+        Optional. z coordinate of the points. If given, will return an
+        array with the value *z*.
     * random : True or False
         If True, positions of the points on the circle will be chosen at random
     * seed : None or int
@@ -274,7 +277,10 @@ def circular_scatter(area, n, random=False, seed=None):
         angles = numpy.arange(0., 2. * math.pi, da)
     xs = 0.5 * (x1 + x2) + radius * numpy.cos(angles)
     ys = 0.5 * (y1 + y2) + radius * numpy.sin(angles)
-    return [xs, ys]
+    arrays = [xs, ys]
+    if z is not None:
+        arrays.append(z*numpy.ones(n))
+    return arrays
 
 
 def spacing(area, shape):
