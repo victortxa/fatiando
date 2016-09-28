@@ -37,6 +37,9 @@ def test_gridder_circular_scatter_seed_noseed():
     x3, y3, z3 = gridder.circular_scatter(area, size, z, random=True)
     assert numpy.all(x1 != x3) and numpy.all(y1 != y3)
     assert numpy.all(z1 == z3)
+    x4, y4, z4 = gridder.circular_scatter(area, size, z, random=False)
+    assert numpy.all(x1 != x4) and numpy.all(y1 != y4)
+
 
 def test_gridder_scatter():
     "gridder.scatter returns diff sequence"
