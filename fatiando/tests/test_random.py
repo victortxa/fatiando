@@ -45,7 +45,7 @@ def test_gridder_circular_scatter_seed_noseed():
 def test_gridder_circular_scatter_constant():
     """
     gridder.circular_scatter must return points with the distance between 
-    consecutive points constant.
+    consecutive ones with a constant value, when ``random = False``.
     """
     area = [0, 1000, 0, 1000]
     size = 1000
@@ -54,6 +54,16 @@ def test_gridder_circular_scatter_constant():
         d1 = ((x[i]-x[i-1])**2 + (y[i]-y[i-1])**2)**0.5
         d2 = ((x[i+1]-x[i])**2 + (y[i+1]-y[i])**2)**0.5
         assert_almost_equal(d1, d2, 9)
+
+
+def test_gridder_circular_scatter_num_point():
+    "gridder.circular_scatter returns a specified ``n`` number of points."
+    area = [0, 1000, 0, 1000]
+    size = 1000
+    x, y = gridder.circular_scatter(area, size, random=False)
+    assert x.size == size and y.size == size
+    x, y = gridder.circular_scatter(area, size, random=True)
+    assert x.size == size and y.size == size
 
 
 def test_gridder_scatter():
@@ -89,6 +99,14 @@ def test_gridder_scatter_seed_noseed():
     x3, y3, z3 = gridder.scatter(area, size, z)
     assert numpy.all(x1 != x3) and numpy.all(y1 != y3)
     assert numpy.all(z1 == z3)
+
+
+def test_gridder_scatter_num_point():
+    "gridder.scatter returns a specified ``n`` number of points."
+    area = [0, 1000, 0, 1000]
+    size = 1000
+    x, y = gridder.scatter(area, size)
+    assert x.size == size and y.size == size
 
 
 def test_utils_contaminate():
