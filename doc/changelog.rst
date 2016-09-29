@@ -10,6 +10,10 @@ Version 0.5
 
 **Changes**:
 
+* Moved function ``fatiando.utils.circular_points`` to
+  ``fatiando.gridder.circular_scatter`` module. Deleted the functions
+  `utils.connect_points` and `utils.random_points`. Unit tests are done.
+  (`PR 317  <https://github.com/fatiando/fatiando/pull/317>`__)
 * Implement unit tests for the ``fatiando.seismic.srtomo`` module. Reached 100%
   test coverage. Now examples are only in the cookbook.
   (`PR 316  <https://github.com/fatiando/fatiando/pull/316>`__)
