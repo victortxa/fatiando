@@ -11,8 +11,14 @@ Version 0.5
 **Changes**:
 
 * Moved function ``fatiando.utils.circular_points`` to
-  ``fatiando.gridder.circular_scatter`` module. Deleted the functions
-  `utils.connect_points` and `utils.random_points`. Unit tests are done.
+  ``fatiando.gridder.circular_scatter`` module because ``gridder`` is where
+  point generation functions live. The function now returns the x, y coordinate
+  arrays instead of a list of points. You can transform x, y to points by
+  ``points = numpy.transpose([x, y])``. Deleted the function
+  ``utils.connect_points`` because it was only used in a single place and could
+  be substituted by two list comprehensions. Deleted function
+  ``utils.random_points`` because it has the exact same functionality as
+  ``gridder.scatter``.
   (`PR 317  <https://github.com/fatiando/fatiando/pull/317>`__)
 * Implement unit tests for the ``fatiando.seismic.srtomo`` module. Reached 100%
   test coverage. Now examples are only in the cookbook.
