@@ -264,6 +264,8 @@ def circular_scatter(area, n, z=None, random=False, seed=None):
 
     * ``[x, y]``
         Numpy arrays with the x and y coordinates of the points
+    * ``[x, y, z]``
+        If *z* given. Arrays with the x, y, and z coordinates of the points
 
     """
     x1, x2, y1, y2 = area
@@ -434,7 +436,7 @@ def profile(x, y, v, point1, point2, size, extrapolate=False):
 
 
 def extrapolate_nans(x, y, v):
-    """"
+    """
     Extrapolate the NaNs or masked values in a grid INPLACE using nearest
     value.
 
