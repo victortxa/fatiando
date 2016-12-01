@@ -25,8 +25,8 @@ Version 0.6
 **Bug fixes**
 
 * Fixes bug in ``fatiando.gravmag.imaging``, replacing
-  transform._getfreqs(x, y, data, shape) with
-  transform._fftfreqs(x, y, shape, shape) because that function was renamed.
+  ``transform._getfreqs(x, y, data, shape)`` with
+  ``transform._fftfreqs(x, y, shape, shape)`` because that function was renamed.
   (`PR 347 <https://github.com/fatiando/fatiando/pull/347>`__)
 
 
