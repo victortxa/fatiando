@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Make some synthetic gravity data from a simple prism model
-model = [mesher.Prism(-1000, 1000,-3000, 3000, 0, 2000, {'density': 800})]
+model = [mesher.Prism(-1000, 1000, -3000, 3000, 0, 2000, {'density': 800})]
 shape = (25, 25)
 xp, yp, zp = gridder.regular((-5000, 5000, -5000, 5000), shape, z=-10)
 data = prism.gz(xp, yp, zp, model)
